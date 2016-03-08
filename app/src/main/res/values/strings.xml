@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Long Story Short</string>
+    <string name="title_activity_mainscreen">Mainscreen</string>
 </resources>
