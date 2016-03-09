@@ -11,13 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class amountscreen extends AppCompatActivity {
-
+    private Intent plyscr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_amountscreen);
         final EditText amtppl = (EditText) findViewById(R.id.editText2);
         Button submit = (Button) findViewById(R.id.button);
+        plyscr = new Intent(this, PlayerActivity.class);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,8 +28,8 @@ public class amountscreen extends AppCompatActivity {
                 } else {
                     int number = Integer.parseInt(nums);
                     if ((number > 1) && (number <= 15)) {
-
-
+                        plyscr.putExtra("number",number);
+                        startActivity(plyscr);
                     } else {
                         Toast.makeText(amountscreen.this, "There should be 2-15 players", Toast.LENGTH_SHORT).show();
                     }
