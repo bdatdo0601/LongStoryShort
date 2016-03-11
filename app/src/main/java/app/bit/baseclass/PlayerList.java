@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -39,26 +40,36 @@ public class PlayerList extends ArrayAdapter<String> {
             this.icon[i] = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_profile);
         }
     }
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
     @Override
     public View getView(final int position, View view, ViewGroup parent){
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.player_list, null, true);
+        if (view == null) {
+            plyname = (EditText) rowView.findViewById(R.id.editText4);
+            plypic = (ImageButton) rowView.findViewById(R.id.imageButton2);
 
-        plyname = (EditText) rowView.findViewById(R.id.editText4);
-        plypic = (ImageButton) rowView.findViewById(R.id.imageButton2);
+            plyname.setText(name[position]);
+            plypic.setImageBitmap(icon[position]);
 
-        plyname.setText(name[position]);
-        plypic.setImageBitmap(icon[position]);
-
-        plypic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                temp_pos = position;
-                context.dispatchTakePictureIntent();
-            }
-        });
-
+            plypic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    temp_pos = position;
+                    context.dispatchTakePictureIntent();
+                }
+            });
+        } else {
+            return (view);
+        }
 
         return rowView;
     }

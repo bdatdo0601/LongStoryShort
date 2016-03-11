@@ -42,6 +42,8 @@ public class PlayerActivity extends AppCompatActivity {
     private ArrayList<Player> players;
     private EditText editText;
     private ListView playerList;
+    private View childView;
+    private ImageButton imageButton;
     static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
@@ -61,7 +63,7 @@ public class PlayerActivity extends AppCompatActivity {
         playerAdapter = new PlayerList(PlayerActivity.this,playername);
         playerList = (ListView) findViewById(R.id.listView2);
         playerList.setAdapter(playerAdapter);
-
+        playerList.setItemsCanFocus(true);
 
 
         FloatingActionButton completedButton = (FloatingActionButton) findViewById(R.id.fab);
@@ -79,15 +81,14 @@ public class PlayerActivity extends AppCompatActivity {
         });
     }
     private String[] getPlayername(){
-        View childView;
-        EditText et;
+
 
         int listLength = playerList.getChildCount();
         for (int i = 0; i < listLength; i++)
         {
             childView = playerList.getChildAt(i);
-            et = (EditText) childView.findViewById(R.id.editText4);
-            playername[i] = et.getText().toString();
+            editText = (EditText) childView.findViewById(R.id.editText4);
+            playername[i] = editText.getText().toString();
         }
         return playername;
     }
@@ -130,9 +131,9 @@ public class PlayerActivity extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
         super.onActivityResult(requestCode, resultCode, data);
-        View childView;
-        ImageButton imageButton;
         int pos = playerAdapter.getPosition();
         childView = playerList.getChildAt(pos);
         imageButton = (ImageButton) childView.findViewById(R.id.imageButton2);
