@@ -29,7 +29,6 @@ public class PlayerList extends ArrayAdapter<String> {
     private Bitmap[] icon;
     private ImageButton plypic;
     private EditText plyname;
-    private int currentPos;
 
     public PlayerList(PlayerActivity context, String[] name){
         super(context, R.layout.player_list,name);
@@ -42,8 +41,7 @@ public class PlayerList extends ArrayAdapter<String> {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent){
-        currentPos = position;
+    public View getView(final int position, View view, ViewGroup parent){
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.player_list, null, true);
 
@@ -56,7 +54,7 @@ public class PlayerList extends ArrayAdapter<String> {
         plypic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                temp_pos = currentPos;
+                temp_pos = position;
                 context.dispatchTakePictureIntent();
             }
         });
@@ -80,12 +78,9 @@ public class PlayerList extends ArrayAdapter<String> {
         return resizedBitmap;
     }
 
-    public void setCurrentIcon(Bitmap icon){
-        icon = getResizedBitmap(icon,300,300);
-        this.icon[temp_pos] = icon;
-        plypic.setImageBitmap(icon);
+    public int getPosition(){
+        return temp_pos;
     }
-
     public String[] getName() {
         return name;
     }

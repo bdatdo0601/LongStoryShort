@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.content.Intent;
 import android.widget.TextView;
@@ -37,9 +38,10 @@ public class PlayerActivity extends AppCompatActivity {
     private String mCurrentPhotoPath;
     private String[] playername;
     private int[] num;
-    private Bitmap[] profile;
+    private Bitmap[] profile ;
     private ArrayList<Player> players;
     private EditText editText;
+    private ListView playerList;
     static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
@@ -50,20 +52,23 @@ public class PlayerActivity extends AppCompatActivity {
         NUMBER_OF_PLAYER = plyamt.getIntExtra("number",2);
         playername = new String[NUMBER_OF_PLAYER];
         num = new int[NUMBER_OF_PLAYER];
+        profile = new Bitmap[NUMBER_OF_PLAYER];
         for (int i = 0; i<playername.length; i++){
             num[i] = i+1;
             playername[i]= "Player "+ Integer.toString(i+1);
+            profile[i] = BitmapFactory.decodeResource(PlayerActivity.this.getResources(),R.drawable.ic_profile);
         }
         playerAdapter = new PlayerList(PlayerActivity.this,playername);
-        ListView playerList = (ListView) findViewById(R.id.listView2);
+        playerList = (ListView) findViewById(R.id.listView2);
         playerList.setAdapter(playerAdapter);
+
 
 
         FloatingActionButton completedButton = (FloatingActionButton) findViewById(R.id.fab);
         completedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playername = playerAdapter.getName();
+                playername = getPlayername();
                 profile = playerAdapter.getIcon();
                 players = new ArrayList<Player>();
                 for (int i=0;i<NUMBER_OF_PLAYER;i++){
@@ -73,7 +78,19 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
     }
+    private String[] getPlayername(){
+        View childView;
+        EditText et;
 
+        int listLength = playerList.getChildCount();
+        for (int i = 0; i < listLength; i++)
+        {
+            childView = playerList.getChildAt(i);
+            et = (EditText) childView.findViewById(R.id.editText4);
+            playername[i] = et.getText().toString();
+        }
+        return playername;
+    }
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -114,8 +131,13 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        playerAdapter.setCurrentIcon(BitmapFactory.decodeFile(mCurrentPhotoPath));
+        View childView;
+        ImageButton imageButton;
+        int pos = playerAdapter.getPosition();
+        childView = playerList.getChildAt(pos);
+        imageButton = (ImageButton) childView.findViewById(R.id.imageButton2);
+        profile[pos] = playerAdapter.getResizedBitmap(BitmapFactory.decodeFile(mCurrentPhotoPath),250,250);
+        imageButton.setImageBitmap(profile[pos]);
     }
 
 
