@@ -27,7 +27,7 @@ public class amountscreen extends AppCompatActivity {
                     Toast.makeText(amountscreen.this,"Please enter the number of players", Toast.LENGTH_SHORT).show();
                 } else {
                     int number = Integer.parseInt(nums);
-                    if ((number > 1) && (number <= 15)) {
+                    if ((number > 5) && (number <= 20)) {
                         plyscr.putExtra("number",number);
                         startActivity(plyscr);
                     } else {
