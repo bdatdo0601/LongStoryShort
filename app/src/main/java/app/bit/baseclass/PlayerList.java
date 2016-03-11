@@ -24,17 +24,17 @@ import app.bit.longstoryshort.R;
  */
 public class PlayerList extends ArrayAdapter<String> {
     private final PlayerActivity context;
-    private final int[] num;
-    private final String[] name;
+    private String[] name;
     private int temp_pos;
     private Bitmap[] icon;
     private ImageButton plypic;
+    private EditText plyname;
+    private int currentPos;
 
-    public PlayerList(PlayerActivity context, String[] name,int[] num){
+    public PlayerList(PlayerActivity context, String[] name){
         super(context, R.layout.player_list,name);
         this.context = context;
         this.name = name;
-        this.num = num;
         this.icon = new Bitmap[this.name.length];
         for (int i = 0; i<this.name.length;i++){
             this.icon[i] = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_profile);
@@ -42,11 +42,12 @@ public class PlayerList extends ArrayAdapter<String> {
     }
 
     @Override
-    public View getView(final int position, View view, ViewGroup parent){
+    public View getView(int position, View view, ViewGroup parent){
+        currentPos = position;
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.player_list, null, true);
 
-        EditText plyname = (EditText) rowView.findViewById(R.id.editText4);
+        plyname = (EditText) rowView.findViewById(R.id.editText4);
         plypic = (ImageButton) rowView.findViewById(R.id.imageButton2);
 
         plyname.setText(name[position]);
@@ -55,10 +56,12 @@ public class PlayerList extends ArrayAdapter<String> {
         plypic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                temp_pos = position;
+                temp_pos = currentPos;
                 context.dispatchTakePictureIntent();
             }
         });
+
+
         return rowView;
     }
     public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
@@ -78,13 +81,16 @@ public class PlayerList extends ArrayAdapter<String> {
     }
 
     public void setCurrentIcon(Bitmap icon){
-        icon = getResizedBitmap(icon,230,230);
+        icon = getResizedBitmap(icon,300,300);
         this.icon[temp_pos] = icon;
         plypic.setImageBitmap(icon);
     }
+
     public String[] getName() {
         return name;
     }
-
+    public Bitmap[] getIcon() {
+        return icon;
+    }
 
 }

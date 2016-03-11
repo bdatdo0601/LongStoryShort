@@ -1,6 +1,7 @@
 package app.bit.longstoryshort;
 
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
@@ -8,14 +9,25 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.content.Intent;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.github.clans.fab.FloatingActionButton;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import app.bit.baseclass.Player;
 import app.bit.baseclass.PlayerList;
 
 
@@ -23,6 +35,11 @@ public class PlayerActivity extends AppCompatActivity {
     private int NUMBER_OF_PLAYER ;
     private PlayerList playerAdapter;
     private String mCurrentPhotoPath;
+    private String[] playername;
+    private int[] num;
+    private Bitmap[] profile;
+    private ArrayList<Player> players;
+    private EditText editText;
     static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
@@ -31,20 +48,32 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
         Intent plyamt = getIntent();
         NUMBER_OF_PLAYER = plyamt.getIntExtra("number",2);
-        String[] defaultplayername = new String[NUMBER_OF_PLAYER];
-        int[] num = new int[NUMBER_OF_PLAYER];
-        for (int i = 0; i<defaultplayername.length; i++){
+        playername = new String[NUMBER_OF_PLAYER];
+        num = new int[NUMBER_OF_PLAYER];
+        for (int i = 0; i<playername.length; i++){
             num[i] = i+1;
-            defaultplayername[i]= "player "+ Integer.toString(i+1);
+            playername[i]= "Player "+ Integer.toString(i+1);
         }
-        playerAdapter = new PlayerList(PlayerActivity.this,defaultplayername,num);
+        playerAdapter = new PlayerList(PlayerActivity.this,playername);
         ListView playerList = (ListView) findViewById(R.id.listView2);
         playerList.setAdapter(playerAdapter);
+
+
+        FloatingActionButton completedButton = (FloatingActionButton) findViewById(R.id.fab);
+        completedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playername = playerAdapter.getName();
+                profile = playerAdapter.getIcon();
+                players = new ArrayList<Player>();
+                for (int i=0;i<NUMBER_OF_PLAYER;i++){
+                    players.add(new Player(playername[i],profile[i]));
+                }
+                System.out.println(players);
+            }
+        });
     }
 
-    public String getPhotoPath(){
-        return mCurrentPhotoPath;
-    }
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());

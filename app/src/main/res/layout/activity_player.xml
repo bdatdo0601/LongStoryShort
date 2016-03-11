@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:descendantFocusability="afterDescendants"
     tools:context="app.bit.longstoryshort.PlayerActivity">
 
 
@@ -27,16 +28,18 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:descendantFocusability="afterDescendants"
             android:id="@+id/listView2" />
 
     </LinearLayout>
 
     <com.github.clans.fab.FloatingActionButton
-        android:id="@+id/menu_item"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        fab:fab_size="mini"
-        fab:fab_label="New Story"
+        fab:fab_size="normal"
+        fab:fab_label="Completed"
+        android:src="@drawable/ic_check"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

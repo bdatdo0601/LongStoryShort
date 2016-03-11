@@ -28,4 +28,7 @@ public class Player {
     public Bitmap getAvatar(){
         return avatar;
     }
+    public String toString(){
+        return String.format("Name: %s%n Icon: %s%n +",name,avatar);
+    }
 }
