@@ -30,7 +30,6 @@ public class PlayerList extends ArrayAdapter<String> {
     private Bitmap[] icon;
     private ImageButton plypic;
     private EditText plyname;
-    private int pos;
     public PlayerList(PlayerActivity context, String[] name){
         super(context, R.layout.player_list,name);
         this.context = context;
@@ -50,8 +49,7 @@ public class PlayerList extends ArrayAdapter<String> {
         return position;
     }
     @Override
-    public View getView(int position, View view, ViewGroup parent){
-        pos = position;
+    public View getView(final int position, View view, ViewGroup parent){
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.player_list, null, true);
         if (view == null) {
@@ -64,7 +62,7 @@ public class PlayerList extends ArrayAdapter<String> {
             plypic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.dispatchTakePictureIntent(pos);
+                    context.dispatchTakePictureIntent(position);
                 }
             });
         } else {

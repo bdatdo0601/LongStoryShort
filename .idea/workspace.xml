@@ -82,15 +82,15 @@
       <file leaf-file-name="PlayerList.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/app/bit/baseclass/PlayerList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.2121739">
-              <caret line="65" column="45" selection-start-line="65" selection-start-column="45" selection-end-line="65" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.5860869">
+              <caret line="64" column="54" selection-start-line="64" selection-start-column="54" selection-end-line="64" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#PlayerList#0" expanded="false" />
-                <element signature="e#1325#1326#0" expanded="true" />
-                <element signature="e#1358#1359#0" expanded="true" />
-                <element signature="e#1420#1421#0" expanded="true" />
-                <element signature="e#1451#1452#0" expanded="true" />
+                <element signature="e#1304#1305#0" expanded="true" />
+                <element signature="e#1337#1338#0" expanded="true" />
+                <element signature="e#1399#1400#0" expanded="true" />
+                <element signature="e#1430#1431#0" expanded="true" />
                 <element signature="method#getResizedBitmap#0;class#PlayerList#0" expanded="false" />
               </folding>
             </state>
@@ -187,7 +187,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/app/bit/longstoryshort/amountscreen.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="79" selection-start-line="33" selection-start-column="79" selection-end-line="33" selection-end-column="79" />
+              <caret line="33" column="78" selection-start-line="33" selection-start-column="78" selection-end-line="33" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -1815,12 +1815,12 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/bit/longstoryshort/PlayersActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/bit/baseclass/PlayerListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/app/bit/longstoryshort/amountscreen.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/player_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/bit/baseclass/Player.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_player.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/bit/longstoryshort/PlayerActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/app/bit/longstoryshort/amountscreen.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/app/bit/baseclass/PlayerList.java" />
       </list>
     </option>
@@ -1907,6 +1907,10 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="bit" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="longstoryshort" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2138,7 +2142,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2494,14 +2498,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/bit/longstoryshort/amountscreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="79" selection-start-line="33" selection-start-column="79" selection-end-line="33" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/app/bit/longstoryshort/Mainscreen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2563,6 +2559,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/app/bit/longstoryshort/amountscreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="78" selection-start-line="33" selection-start-column="78" selection-end-line="33" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/app/bit/longstoryshort/PlayerActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2576,15 +2580,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/app/bit/baseclass/PlayerList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2121739">
-          <caret line="65" column="45" selection-start-line="65" selection-start-column="45" selection-end-line="65" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.5860869">
+          <caret line="64" column="54" selection-start-line="64" selection-start-column="54" selection-end-line="64" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#PlayerList#0" expanded="false" />
-            <element signature="e#1325#1326#0" expanded="true" />
-            <element signature="e#1358#1359#0" expanded="true" />
-            <element signature="e#1420#1421#0" expanded="true" />
-            <element signature="e#1451#1452#0" expanded="true" />
+            <element signature="e#1304#1305#0" expanded="true" />
+            <element signature="e#1337#1338#0" expanded="true" />
+            <element signature="e#1399#1400#0" expanded="true" />
+            <element signature="e#1430#1431#0" expanded="true" />
             <element signature="method#getResizedBitmap#0;class#PlayerList#0" expanded="false" />
           </folding>
         </state>
