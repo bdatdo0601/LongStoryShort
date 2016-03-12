@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class amountscreen extends AppCompatActivity {
@@ -19,9 +17,11 @@ public class amountscreen extends AppCompatActivity {
         final EditText amtppl = (EditText) findViewById(R.id.editText2);
         Button submit = (Button) findViewById(R.id.button);
         plyscr = new Intent(this, PlayerActivity.class);
+        assert submit != null;
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                assert amtppl != null;
                 String nums = amtppl.getText().toString();
                 if (nums.equals("")||nums.equals("-")) {
                     Toast.makeText(amountscreen.this,"Please enter the number of players", Toast.LENGTH_SHORT).show();
