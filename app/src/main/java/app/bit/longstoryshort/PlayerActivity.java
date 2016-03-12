@@ -40,10 +40,8 @@ public class PlayerActivity extends AppCompatActivity {
     private int[] num;
     private Bitmap[] profile ;
     private ArrayList<Player> players;
-    private EditText editText;
     private ListView playerList;
-    private View childView;
-    private ImageButton imageButton;
+    private int position;
     static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
@@ -82,12 +80,12 @@ public class PlayerActivity extends AppCompatActivity {
     }
     private String[] getPlayername(){
 
-
+        View childView;
         int listLength = playerList.getChildCount();
         for (int i = 0; i < listLength; i++)
         {
             childView = playerList.getChildAt(i);
-            editText = (EditText) childView.findViewById(R.id.editText4);
+            EditText editText = (EditText) childView.findViewById(R.id.editText4);
             playername[i] = editText.getText().toString();
         }
         return playername;
@@ -109,7 +107,8 @@ public class PlayerActivity extends AppCompatActivity {
         return image;
     }
 
-    public void dispatchTakePictureIntent() {
+    public void dispatchTakePictureIntent(int pos) {
+        position = pos;
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -132,13 +131,16 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
         super.onActivityResult(requestCode, resultCode, data);
-        int pos = playerAdapter.getPosition();
-        childView = playerList.getChildAt(pos);
-        imageButton = (ImageButton) childView.findViewById(R.id.imageButton2);
-        profile[pos] = playerAdapter.getResizedBitmap(BitmapFactory.decodeFile(mCurrentPhotoPath),250,250);
-        imageButton.setImageBitmap(profile[pos]);
+        View childView = playerList.getChildAt(position);
+        int listLength = playerList.getChildCount();
+        System.out.println(position);
+        System.out.println(listLength);
+        if (childView != null) {
+            ImageButton imageButton = (ImageButton) childView.findViewById(R.id.imageButton2);
+            profile[position] = playerAdapter.getResizedBitmap(BitmapFactory.decodeFile(mCurrentPhotoPath), 250, 250);
+            imageButton.setImageBitmap(profile[position]);
+        }
     }
 
 
