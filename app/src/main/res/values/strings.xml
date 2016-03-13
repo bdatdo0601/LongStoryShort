@@ -8,4 +8,7 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_wait">WaitActivity</string>
+    <string name="hint">Enter up to 150 characters</string>
 </resources>

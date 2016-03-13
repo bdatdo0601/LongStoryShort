@@ -7,10 +7,10 @@ import android.graphics.BitmapFactory;
  * Created by bdatd on 3/8/2016.
  */
 public class Player {
-    private String name;
-    private Bitmap avatar;
+    private final String name;
+    private final Bitmap avatar;
     private static int numberofPlayer=0;
-    private int playerNumber;
+    private final int playerNumber;
 
     public Player(){
         name = "Player " + (numberofPlayer+1);

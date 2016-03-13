@@ -29,6 +29,7 @@ import java.util.Date;
 import app.bit.baseclass.ListofPlayer;
 import app.bit.baseclass.Player;
 import app.bit.baseclass.PlayerList;
+import app.bit.gameplay.WaitActivity;
 
 
 public class PlayerActivity extends AppCompatActivity {
@@ -74,12 +75,13 @@ public class PlayerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 playername = getPlayername();
-                profile = playerAdapter.getIcon();
                 players = new ArrayList<>();
                 for (int i = 0; i < NUMBER_OF_PLAYER; i++) {
                     players.add(new Player(playername[i], profile[i]));
                 }
                 ListofPlayer.getInstance().setList(players);
+                Intent toWaitScreen = new Intent(PlayerActivity.this, WaitActivity.class);
+                startActivity(toWaitScreen);
 
             }
         });

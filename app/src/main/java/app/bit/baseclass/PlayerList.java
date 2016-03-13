@@ -1,15 +1,10 @@
 package app.bit.baseclass;
 
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +21,6 @@ import app.bit.longstoryshort.R;
 public class PlayerList extends ArrayAdapter<String> {
     private final PlayerActivity context;
     private String[] name;
-    private static int temp_pos;
     private Bitmap[] icon;
     private ImageButton plypic;
     private EditText plyname;
