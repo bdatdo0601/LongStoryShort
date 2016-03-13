@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import app.bit.baseclass.Multimedia.Clips;
+import app.bit.baseclass.Multimedia.Picture;
+import app.bit.baseclass.Multimedia.StoryPart;
+import app.bit.baseclass.currentStory;
 import app.bit.gameplay.Record.AudioRecord;
 import app.bit.gameplay.Record.WriteRecord;
 import app.bit.longstoryshort.R;
@@ -54,14 +58,19 @@ public class OptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
-                //TODO: do something with mCurrentPhotoPath;
+                currentStory.getInstance().addStoryPart(new Picture(mCurrentPhotoPath));
+                intent = new Intent(OptionActivity.this,StoryActivity.class);
+                startActivity(intent);
             }
         });
         videoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dispatchTakeVideoIntent();
-                //TODO: do something with videoUri;
+                currentStory.getInstance().addStoryPart(new Clips(videoUri));
+                intent = new Intent(OptionActivity.this,StoryActivity.class);
+                startActivity(intent);
+
             }
         });
         voiceButton.setOnClickListener(new View.OnClickListener() {

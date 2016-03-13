@@ -1,10 +1,14 @@
 package app.bit.baseclass;
 
+import java.util.ArrayList;
+
+import app.bit.baseclass.Multimedia.StoryPart;
+
 /**
  * Created by bdatd on 3/12/2016.
  */
 public class currentStory {
-
+    private ArrayList<StoryPart> story = new ArrayList<StoryPart>();
     private static currentStory ourInstance = new currentStory();
 
     public static currentStory getInstance() {
@@ -12,5 +16,13 @@ public class currentStory {
     }
 
     private currentStory() {
+    }
+
+    public void addStoryPart(StoryPart part){
+        story.add(part);
+    }
+
+    public ArrayList<StoryPart> getStory(){
+        return story;
     }
 }

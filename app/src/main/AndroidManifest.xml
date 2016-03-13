@@ -48,6 +48,10 @@
         <activity android:name="app.bit.gameplay.OptionActivity" />
         <activity android:name="app.bit.gameplay.Record.WriteRecord" />
         <activity android:name="app.bit.gameplay.Record.AudioRecord" />
+        <activity
+            android:name="app.bit.gameplay.StoryActivity"
+            android:label="@string/title_activity_story"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

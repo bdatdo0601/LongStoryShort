@@ -1,5 +1,6 @@
 package app.bit.gameplay.Record;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.widget.ImageButton;
@@ -16,6 +17,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import app.bit.baseclass.Multimedia.Audio;
+import app.bit.baseclass.Multimedia.StoryPart;
+import app.bit.baseclass.currentStory;
+import app.bit.gameplay.StoryActivity;
 import app.bit.longstoryshort.R;
 
 public class AudioRecord extends AppCompatActivity {
@@ -73,6 +78,9 @@ public class AudioRecord extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println(mFileName);
                 //TODO: do something with mFileName
+                currentStory.getInstance().addStoryPart(new Audio(mFileName));
+                Intent intent = new Intent(AudioRecord.this,StoryActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -138,7 +146,4 @@ public class AudioRecord extends AppCompatActivity {
         mFileName += "/" +audioFileName + ".3gp";
     }
 
-    public String getmFileName(){
-        return mFileName;
-    }
 }
