@@ -40,18 +40,14 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name="app.bit.gameplay.WaitActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_wait"
-            android:theme="@style/FullscreenTheme" />
-        <activity android:name="app.bit.gameplay.OptionActivity" />
-        <activity android:name="app.bit.gameplay.Record.WriteRecord" />
+        <activity android:name="app.bit.gameplay.OptionActivity"
+                  android:windowSoftInputMode="stateHidden" />
         <activity android:name="app.bit.gameplay.Record.AudioRecord" />
         <activity
             android:name="app.bit.gameplay.StoryActivity"
             android:label="@string/title_activity_story"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="app.bit.gameplay.WaitScreen"></activity>
     </application>
 
 </manifest>

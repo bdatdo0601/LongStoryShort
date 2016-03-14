@@ -22,6 +22,10 @@ public class currentStory {
         story.add(part);
     }
 
+    public int getSize(){
+        return story.size();
+    }
+
     public ArrayList<StoryPart> getStory(){
         return story;
     }

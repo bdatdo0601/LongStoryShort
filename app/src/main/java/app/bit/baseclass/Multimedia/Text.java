@@ -1,5 +1,6 @@
 package app.bit.baseclass.Multimedia;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,14 +13,20 @@ public class Text extends StoryPart {
 
     private String text;
 
-    public Text(){
-        text = "";
-    }
     public Text(String content){
         text = content;
     }
     public String getText(){
         return text;
     }
+
+    @Override
+    public View createView() {
+        TextView textView = new TextView(this.getContext());
+        textView.setText(text);
+        textView.setTextSize(30);
+        return textView;
+    }
+
 
 }

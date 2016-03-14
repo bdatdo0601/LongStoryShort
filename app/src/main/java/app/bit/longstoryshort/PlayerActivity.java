@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.content.Intent;
 
@@ -29,7 +30,7 @@ import java.util.Date;
 import app.bit.baseclass.ListofPlayer;
 import app.bit.baseclass.Player;
 import app.bit.baseclass.PlayerList;
-import app.bit.gameplay.WaitActivity;
+import app.bit.gameplay.WaitScreen;
 
 
 public class PlayerActivity extends AppCompatActivity {
@@ -80,7 +81,7 @@ public class PlayerActivity extends AppCompatActivity {
                     players.add(new Player(playername[i], profile[i]));
                 }
                 ListofPlayer.getInstance().setList(players);
-                Intent toWaitScreen = new Intent(PlayerActivity.this, WaitActivity.class);
+                Intent toWaitScreen = new Intent(PlayerActivity.this, WaitScreen.class);
                 startActivity(toWaitScreen);
 
             }
@@ -150,8 +151,9 @@ public class PlayerActivity extends AppCompatActivity {
             Bitmap pic = BitmapFactory.decodeFile(mCurrentPhotoPath);
             if (pic != null) {
                 ImageButton imageButton = (ImageButton) childView.findViewById(R.id.imageButton2);
-                profile[position] = playerAdapter.getResizedBitmap(BitmapFactory.decodeFile(mCurrentPhotoPath), 250, 250);
+                profile[position] = BitmapFactory.decodeFile(mCurrentPhotoPath);
                 imageButton.setImageBitmap(profile[position]);
+                imageButton.setScaleType(ImageButton.ScaleType.CENTER_INSIDE);
             }
         }
     }

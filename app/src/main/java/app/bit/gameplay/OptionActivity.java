@@ -1,128 +1,150 @@
 package app.bit.gameplay;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import app.bit.baseclass.Multimedia.Clips;
-import app.bit.baseclass.Multimedia.Picture;
-import app.bit.baseclass.Multimedia.StoryPart;
+import app.bit.baseclass.Multimedia.Text;
 import app.bit.baseclass.currentStory;
 import app.bit.gameplay.Record.AudioRecord;
-import app.bit.gameplay.Record.WriteRecord;
 import app.bit.longstoryshort.R;
+import app.bit.longstoryshort.amountscreen;
 
 public class OptionActivity extends AppCompatActivity {
-    private String mCurrentPhotoPath;
-    private Uri videoUri;
-    private Intent intent;
-    static final int REQUEST_TAKE_PHOTO = 1;
+
     static final int REQUEST_VIDEO_CAPTURE = 1;
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
 
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
-
+        final Bundle args = savedInstanceState;
         ImageButton cameraButton = (ImageButton) findViewById(R.id.cameraButton);
         ImageButton videoButton = (ImageButton) findViewById(R.id.videoButton);
         ImageButton voiceButton = (ImageButton) findViewById(R.id.voiceButton);
         ImageButton writeButton = (ImageButton) findViewById(R.id.writeButton);
+
+        cameraButton.requestFocus();
+
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchTakePictureIntent();
-                currentStory.getInstance().addStoryPart(new Picture(mCurrentPhotoPath));
-                intent = new Intent(OptionActivity.this,StoryActivity.class);
-                startActivity(intent);
+                //TODO: Make a simple drawing applet
             }
         });
+
         videoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dispatchTakeVideoIntent();
-                currentStory.getInstance().addStoryPart(new Clips(videoUri));
-                intent = new Intent(OptionActivity.this,StoryActivity.class);
-                startActivity(intent);
 
             }
         });
+
         voiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(OptionActivity.this, AudioRecord.class);
+                Intent intent = new Intent(OptionActivity.this, AudioRecord.class);
                 startActivity(intent);
             }
         });
+
         writeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(OptionActivity.this, WriteRecord.class);
-                startActivity(intent);
+                Dialog dialog = CreateTextDialog();
+                dialog.show();
             }
         });
     }
+
+    @Override
+    public void onBackPressed(){
+        if (currentStory.getInstance().getSize() == 0){
+            Dialog dialog = recreateDialog();
+            dialog.show();
+        } else {
+            Intent intent = new Intent(OptionActivity.this, StoryActivity.class);
+            finish();
+        }
+    }
+
     private void dispatchTakeVideoIntent() {
-        intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 5);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, REQUEST_VIDEO_CAPTURE);
         }
     }
-    private void dispatchTakePictureIntent() {
-        intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
 
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-                startActivityForResult(intent, REQUEST_TAKE_PHOTO);
-
-            }
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
-            videoUri = intent.getData();
+            Uri videoUri = data.getData();
+            currentStory.getInstance().addStoryPart(new Clips(videoUri));
+            Intent intent = new Intent(OptionActivity.this,StoryActivity.class);
+            startActivity(intent);
+            finish();
         }
-        else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
 
-        }
+    }
+
+    private Dialog recreateDialog() {
+        // Use the Builder class for convenient dialog construction
+        final AlertDialog.Builder builder = new AlertDialog.Builder(OptionActivity.this);
+        builder.setMessage("Do you want to change your profile?")
+                .setPositiveButton("Yah!", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(OptionActivity.this, amountscreen.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Nope", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        // Create the AlertDialog object and return it
+        return builder.create();
+    }
+
+    private Dialog CreateTextDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(OptionActivity.this);
+        LayoutInflater inflater = OptionActivity.this.getLayoutInflater();
+
+        builder.setTitle("Type in your part here!")
+                .setView(inflater.inflate(R.layout.activity_write_record, null))
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Dialog f = (Dialog) dialog;
+                        EditText contentText = (EditText) f.findViewById(R.id.writeEditText);
+                        if (!contentText.equals(R.string.hint)) {
+                            currentStory.getInstance().addStoryPart(new Text(contentText.getText().toString()));
+                            Intent intent = new Intent(OptionActivity.this, StoryActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        return builder.create();
     }
 }

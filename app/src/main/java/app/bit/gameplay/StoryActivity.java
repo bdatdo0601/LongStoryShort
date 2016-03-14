@@ -1,8 +1,6 @@
 package app.bit.gameplay;
 
-import android.app.ActionBar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -17,18 +15,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.github.clans.fab.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import app.bit.baseclass.Multimedia.Audio;
-import app.bit.baseclass.Multimedia.Picture;
+import app.bit.baseclass.ListofPlayer;
 import app.bit.baseclass.Multimedia.StoryPart;
-import app.bit.baseclass.Multimedia.Text;
 import app.bit.baseclass.currentStory;
 import app.bit.longstoryshort.R;
 
@@ -48,7 +43,7 @@ public class StoryActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-
+    private FloatingActionButton completeStory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +51,24 @@ public class StoryActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        FloatingActionButton nextPlayer = (FloatingActionButton) findViewById(R.id.nextButton);
+        completeStory = (FloatingActionButton) findViewById(R.id.completedButton);
+
+        nextPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StoryActivity.this, WaitScreen.class);
+                startActivity(intent);
+            }
+        });
+
+        completeStory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Store each singleton of current story.
+            }
+        });
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -65,7 +78,20 @@ public class StoryActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
     }
-
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if (ListofPlayer.getInstance().getNumberofPlayer() > currentStory.getInstance().getSize()){
+            completeStory.setVisibility(View.GONE);
+        } else {
+            completeStory.setVisibility(View.VISIBLE);
+        }
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(StoryActivity.this, WaitScreen.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -97,9 +123,9 @@ public class StoryActivity extends AppCompatActivity {
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static int position = 0;
+        private int position;
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private static FrameLayout test;
+        private FrameLayout test;
         private ArrayList<StoryPart> story = currentStory.getInstance().getStory();
         public PlaceholderFragment() {
         }
@@ -122,30 +148,17 @@ public class StoryActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_story, container, false);
             test = (FrameLayout) rootView.findViewById(R.id.multiView);
             StoryPart part = story.get(position);
-            setView(part);
+            part.setContext(this.getContext());
+            View temp = part.createView();
+            temp.setLayoutParams(test.getLayoutParams());
+            test.addView(temp);
+
             return rootView;
         }
-        private void setView(StoryPart part){
-            if (part.getClass().equals(Audio.class)) {
 
-            }
-            if (part.getClass().equals(Text.class)){
-                TextView textView = new TextView(this.getContext());
-                Text textPart = (Text) part;
-                textView.setText(textPart.getText());
-                test.addView(textView);
-            }
-            if (part.getClass().equals(Picture.class)){
-
-
-            }
-            if (part.getClass().equals(Text.class)){
-
-
-            }
-        }
-        public static void setPosition(int pos){
+        public void setPosition(int pos){
             position = pos;
+            System.out.println(position);
         }
 
     }
@@ -162,12 +175,12 @@ public class StoryActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            PlaceholderFragment.setPosition(position);
+            PlaceholderFragment fragment = PlaceholderFragment.newInstance(position);
+            fragment.setPosition(position);
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position);
+            return fragment;
         }
-
 
 
         @Override

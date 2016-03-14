@@ -18,19 +18,24 @@ public class ListofPlayer {
     }
 
     public final void setList(ArrayList<Player> list){
-
         this.list = list;
         position = 0;
     }
     public ArrayList<Player> getList(){
-        position++;
         return list;
     }
     public int getPosition(){
         return position;
     }
+
+    public int getNumberofPlayer(){
+        return list.size();
+    }
+
     public Player getcurrentPlayer(){
-        Player currentPlayer = list.get(position);
+        int pos = position % getNumberofPlayer();
+        position++;
+        Player currentPlayer = list.get(pos);
         return currentPlayer;
     }
 }

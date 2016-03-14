@@ -3,12 +3,12 @@
 
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:focusable="true"
+    android:focusable="false"
     android:descendantFocusability="afterDescendants"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="app.bit.gameplay.Record.AudioRecord"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="false">
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -22,30 +22,30 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play"
+        android:text="@string/playButtonTitle"
         android:id="@+id/playButton"
-        android:layout_marginTop="78dp"
+        android:layout_marginTop="69dp"
         android:layout_below="@+id/recordButton"
-        android:layout_toLeftOf="@+id/recordButton"
-        android:layout_toStartOf="@+id/recordButton" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
+        android:text="@string/submitButtonTitle"
         android:id="@+id/submitButton"
-        android:layout_alignTop="@+id/playButton"
-        android:layout_toRightOf="@+id/recordButton"
-        android:layout_toEndOf="@+id/recordButton" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="53dp" />
     <requestFocus/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Audio Record"
+        android:text="@string/AudioRecordTitle"
         android:id="@+id/title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="50dp" />
+        android:textSize="50sp" />
+
 </RelativeLayout>

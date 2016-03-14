@@ -12,4 +12,7 @@
     <string name="title_activity_wait">WaitActivity</string>
     <string name="hint">Enter up to 150 characters</string>
     <string name="title_activity_story">StoryActivity</string>
+    <string name="AudioRecordTitle">Hold to record</string>
+    <string name="submitButtonTitle">Submit</string>
+    <string name="playButtonTitle">Play</string>
 </resources>

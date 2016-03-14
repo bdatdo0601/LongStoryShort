@@ -84,6 +84,13 @@ public class AudioRecord extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        finish();
+    }
+
     private void onPlay(boolean start) {
         if (start) {
             startPlaying();
