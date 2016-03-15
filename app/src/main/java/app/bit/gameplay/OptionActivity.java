@@ -2,10 +2,14 @@ package app.bit.gameplay;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +17,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import java.io.File;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import app.bit.baseclass.Multimedia.Clips;
 import app.bit.baseclass.Multimedia.Text;
@@ -24,6 +36,7 @@ import app.bit.longstoryshort.amountscreen;
 public class OptionActivity extends AppCompatActivity {
 
     static final int REQUEST_VIDEO_CAPTURE = 1;
+    private String mCurrentVideoPath;
 
 
     @Override
@@ -31,6 +44,7 @@ public class OptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
         final Bundle args = savedInstanceState;
+
         ImageButton cameraButton = (ImageButton) findViewById(R.id.cameraButton);
         ImageButton videoButton = (ImageButton) findViewById(R.id.videoButton);
         ImageButton voiceButton = (ImageButton) findViewById(R.id.voiceButton);
@@ -89,19 +103,84 @@ public class OptionActivity extends AppCompatActivity {
         }
     }
 
+    private String getVideofilename() {
+        // Create an image file name
+        String mFileName;
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String audioFileName = "mp4_" + timeStamp + "_";
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mFileName = getExternalFilesDir("DIRECTORY_VIDEO").getAbsolutePath();
+        mFileName += "/" +audioFileName + ".mp4";
+        return mFileName;
+    }
+
+    private void deleteFileFromMediaStore(final ContentResolver contentResolver, final File file) {
+        String canonicalPath;
+        try {
+            canonicalPath = file.getCanonicalPath();
+        } catch (IOException e) {
+            canonicalPath = file.getAbsolutePath();
+        }
+        final Uri uri = MediaStore.Files.getContentUri("external");
+        final int result = contentResolver.delete(uri,
+                MediaStore.Files.FileColumns.DATA + "=?", new String[]{canonicalPath});
+        if (result == 0) {
+            final String absolutePath = file.getAbsolutePath();
+            if (!absolutePath.equals(canonicalPath)) {
+                contentResolver.delete(uri,
+                        MediaStore.Files.FileColumns.DATA + "=?", new String[]{absolutePath});
+            }
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
-            Uri videoUri = data.getData();
-            currentStory.getInstance().addStoryPart(new Clips(videoUri));
-            Intent intent = new Intent(OptionActivity.this,StoryActivity.class);
-            startActivity(intent);
+            try {
+                File originFile = new File(getRealPathFromURI(data.getData()));
+                FileInputStream fis = new FileInputStream(originFile);
+                //this is where you set whatever path you want to save it as:
+
+                File tmpFile = new File(getVideofilename());
+
+                //save the video to the File path
+                FileOutputStream fos = new FileOutputStream(tmpFile);
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = fis.read(buf)) > 0) {
+                    fos.write(buf, 0, len);
+                }
+                fis.close();
+                fos.close();
+
+                System.out.println(tmpFile.getAbsolutePath());
+
+                currentStory.getInstance().addStoryPart(new Clips(Uri.fromFile(tmpFile)));
+                Intent intent = new Intent(OptionActivity.this,StoryActivity.class);
+                startActivity(intent);
+                if (originFile.exists()){
+                    deleteFileFromMediaStore(this.getContentResolver(),originFile);
+                }
+            } catch (IOException io_e) {
+                // TODO: handle error
+            }
+
             finish();
         }
 
     }
 
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
+    }
     private Dialog recreateDialog() {
         // Use the Builder class for convenient dialog construction
         final AlertDialog.Builder builder = new AlertDialog.Builder(OptionActivity.this);
