@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.bit.baseclass.Multimedia.Audio;
-import app.bit.baseclass.Multimedia.StoryPart;
 import app.bit.baseclass.currentStory;
 import app.bit.gameplay.StoryActivity;
 import app.bit.longstoryshort.R;
