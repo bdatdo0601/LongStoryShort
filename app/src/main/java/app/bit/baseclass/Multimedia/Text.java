@@ -1,10 +1,8 @@
 package app.bit.baseclass.Multimedia;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import app.bit.gameplay.StoryActivity;
 
 /**
  * Created by bdatd on 3/12/2016.

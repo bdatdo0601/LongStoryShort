@@ -13,6 +13,7 @@ public abstract class StoryPart {
     public Context getContext(){
         return context;
     }
+
 }
 
     /**

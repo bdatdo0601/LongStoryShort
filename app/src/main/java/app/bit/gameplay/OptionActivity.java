@@ -1,17 +1,14 @@
 package app.bit.gameplay;
 
 import android.app.Dialog;
-<<<<<<< HEAD
-=======
-import android.app.DialogFragment;
+
 import android.content.ContentResolver;
-import android.content.Context;
->>>>>>> master
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +36,6 @@ import app.bit.longstoryshort.amountscreen;
 public class OptionActivity extends AppCompatActivity {
 
     static final int REQUEST_VIDEO_CAPTURE = 1;
-    private String mCurrentVideoPath;
 
 
     @Override
@@ -73,8 +69,8 @@ public class OptionActivity extends AppCompatActivity {
         voiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OptionActivity.this, AudioRecord.class);
-                startActivity(intent);
+                DialogFragment dialog = new AudioRecord();
+                dialog.show(getSupportFragmentManager(),"AudioRecord");
             }
         });
 
