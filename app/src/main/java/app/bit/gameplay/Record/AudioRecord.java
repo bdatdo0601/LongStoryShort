@@ -13,6 +13,7 @@ import android.util.Log;
 import android.media.MediaRecorder;
 import android.media.MediaPlayer;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -148,7 +149,7 @@ public class AudioRecord extends AppCompatActivity {
         String audioFileName = "3gp_" + timeStamp + "_";
 
         // Save a file: path for use with ACTION_VIEW intents
-        mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+        mFileName = getExternalFilesDir("DIRECTORY_AUDIO").getAbsolutePath();
         mFileName += "/" +audioFileName + ".3gp";
     }
 
