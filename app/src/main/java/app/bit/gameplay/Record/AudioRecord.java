@@ -161,7 +161,7 @@ public class AudioRecord extends DialogFragment {
     }
 
     private void setmFileName() {
-        // Create an image file name
+        // Create an audio file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String audioFileName = "3gp_" + timeStamp + "_";
 

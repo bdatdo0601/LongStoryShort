@@ -21,13 +21,13 @@ public class Mainscreen extends AppCompatActivity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        final Intent amtscr = new Intent(this, amountscreen.class);
         setContentView(R.layout.content_mainscreen);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.menu_item);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              startActivity(amtscr);
+                Intent amtscr = new Intent(Mainscreen.this, amountscreen.class);
+                startActivity(amtscr);
             }
         });
     }

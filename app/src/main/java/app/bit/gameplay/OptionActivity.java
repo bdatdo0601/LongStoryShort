@@ -3,11 +3,13 @@ package app.bit.gameplay;
 import android.app.Dialog;
 
 import android.content.ContentResolver;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
@@ -42,7 +44,6 @@ public class OptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
-        final Bundle args = savedInstanceState;
 
         ImageButton cameraButton = (ImageButton) findViewById(R.id.cameraButton);
         ImageButton videoButton = (ImageButton) findViewById(R.id.videoButton);
@@ -89,8 +90,7 @@ public class OptionActivity extends AppCompatActivity {
             Dialog dialog = recreateDialog();
             dialog.show();
         } else {
-            Intent intent = new Intent(OptionActivity.this, StoryActivity.class);
-            finish();
+
         }
     }
 
@@ -153,8 +153,6 @@ public class OptionActivity extends AppCompatActivity {
                 fis.close();
                 fos.close();
 
-                System.out.println(tmpFile.getAbsolutePath());
-
                 currentStory.getInstance().addStoryPart(new Clips(Uri.fromFile(tmpFile)));
                 Intent intent = new Intent(OptionActivity.this,StoryActivity.class);
                 startActivity(intent);
@@ -211,7 +209,15 @@ public class OptionActivity extends AppCompatActivity {
                         Dialog f = (Dialog) dialog;
                         EditText contentText = (EditText) f.findViewById(R.id.writeEditText);
                         if (!contentText.equals(R.string.hint)) {
-                            currentStory.getInstance().addStoryPart(new Text(contentText.getText().toString()));
+                            // Create an text file name
+                            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                            String audioFileName = "3gp_" + timeStamp + "_";
+
+                            // Save a file: path for use with ACTION_VIEW intents
+                            String fileName = getExternalFilesDir("DIRECTORY_TEXT").getAbsolutePath();
+                            fileName += "/" +audioFileName + ".txt";
+
+                            currentStory.getInstance().addStoryPart(new Text(contentText.getText().toString(),fileName));
                             Intent intent = new Intent(OptionActivity.this, StoryActivity.class);
                             startActivity(intent);
                         }
