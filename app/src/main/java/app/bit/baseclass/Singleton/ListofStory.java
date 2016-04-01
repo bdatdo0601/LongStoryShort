@@ -1,6 +1,8 @@
-package app.bit.baseclass;
+package app.bit.baseclass.Singleton;
 
 import java.util.HashMap;
+
+import app.bit.baseclass.Story;
 
 /**
  *

@@ -30,7 +30,7 @@ import java.util.Date;
 
 import app.bit.baseclass.Multimedia.Clips;
 import app.bit.baseclass.Multimedia.Text;
-import app.bit.baseclass.currentStory;
+import app.bit.baseclass.Singleton.currentStory;
 import app.bit.gameplay.Record.AudioRecord;
 import app.bit.longstoryshort.R;
 import app.bit.longstoryshort.amountscreen;

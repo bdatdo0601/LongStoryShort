@@ -1,19 +1,15 @@
 package app.bit.baseclass;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.ContextThemeWrapper;
 
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.lang.Object;
 
 import app.bit.baseclass.Multimedia.StoryPart;
+import app.bit.baseclass.Singleton.currentStory;
 
 /**
  * Created by datbacdo on 3/24/16.

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import app.bit.baseclass.ListofPlayer;
+import app.bit.baseclass.Singleton.ListofPlayer;
 import app.bit.baseclass.Player;
 import app.bit.longstoryshort.R;
 

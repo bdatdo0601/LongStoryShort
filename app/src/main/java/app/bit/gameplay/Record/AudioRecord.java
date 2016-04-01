@@ -5,12 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.widget.ImageButton;
 import android.os.Bundle;
-import android.os.Environment;
 import android.widget.Button;
 import android.view.View;
 
@@ -18,14 +16,12 @@ import android.util.Log;
 import android.media.MediaRecorder;
 import android.media.MediaPlayer;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.bit.baseclass.Multimedia.Audio;
-import app.bit.baseclass.currentStory;
-import app.bit.gameplay.OptionActivity;
+import app.bit.baseclass.Singleton.currentStory;
 import app.bit.gameplay.StoryActivity;
 import app.bit.longstoryshort.R;
 

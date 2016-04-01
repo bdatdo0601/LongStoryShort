@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.content.Intent;
 
@@ -27,9 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import app.bit.baseclass.ListofPlayer;
+import app.bit.baseclass.Singleton.ListofPlayer;
 import app.bit.baseclass.Player;
-import app.bit.baseclass.PlayerList;
+import app.bit.baseclass.Listadapter.PlayerList;
 import app.bit.gameplay.WaitScreen;
 
 

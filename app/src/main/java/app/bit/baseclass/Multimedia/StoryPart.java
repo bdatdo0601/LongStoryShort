@@ -7,7 +7,7 @@ import android.view.View;
 
 import java.io.File;
 
-import app.bit.baseclass.ListofPlayer;
+import app.bit.baseclass.Singleton.ListofPlayer;
 import app.bit.baseclass.Player;
 
 public abstract class StoryPart {

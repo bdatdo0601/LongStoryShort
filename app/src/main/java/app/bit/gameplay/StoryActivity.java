@@ -23,15 +23,13 @@ import android.widget.FrameLayout;
 
 import com.github.clans.fab.FloatingActionButton;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import app.bit.baseclass.ListofPlayer;
-import app.bit.baseclass.ListofStory;
+import app.bit.baseclass.Singleton.ListofPlayer;
+import app.bit.baseclass.Singleton.ListofStory;
 import app.bit.baseclass.Multimedia.StoryPart;
-import app.bit.baseclass.Multimedia.Text;
 import app.bit.baseclass.Story;
-import app.bit.baseclass.currentStory;
+import app.bit.baseclass.Singleton.currentStory;
 import app.bit.longstoryshort.Mainscreen;
 import app.bit.longstoryshort.R;
 

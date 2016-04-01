@@ -1,6 +1,8 @@
-package app.bit.baseclass;
+package app.bit.baseclass.Singleton;
 
 import java.util.ArrayList;
+
+import app.bit.baseclass.Player;
 
 /**
  * Created by bdatd on 3/11/2016.
