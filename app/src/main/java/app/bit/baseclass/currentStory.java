@@ -18,12 +18,17 @@ public class currentStory {
     private currentStory() {
     }
 
+
     public void addStoryPart(StoryPart part){
         story.add(part);
     }
 
     public int getSize(){
         return story.size();
+    }
+
+    public void setStory(ArrayList<StoryPart> newStory){
+        story  = newStory;
     }
 
     public ArrayList<StoryPart> getStory(){

@@ -1,14 +1,25 @@
 package app.bit.gameplay;
 
 import android.app.Dialog;
+<<<<<<< HEAD
 import android.app.DialogFragment;
 import android.content.ContentResolver;
 import android.content.Context;
+=======
+
+import android.content.ContentResolver;
+
+>>>>>>> refs/remotes/origin/fromMac
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+<<<<<<< HEAD
+=======
+
+import android.support.v4.app.DialogFragment;
+>>>>>>> refs/remotes/origin/fromMac
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -43,7 +54,10 @@ public class OptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
+<<<<<<< HEAD
         final Bundle args = savedInstanceState;
+=======
+>>>>>>> refs/remotes/origin/fromMac
 
         ImageButton cameraButton = (ImageButton) findViewById(R.id.cameraButton);
         ImageButton videoButton = (ImageButton) findViewById(R.id.videoButton);
@@ -70,8 +84,8 @@ public class OptionActivity extends AppCompatActivity {
         voiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OptionActivity.this, AudioRecord.class);
-                startActivity(intent);
+                DialogFragment dialog = new AudioRecord();
+                dialog.show(getSupportFragmentManager(),"AudioRecord");
             }
         });
 
@@ -90,8 +104,7 @@ public class OptionActivity extends AppCompatActivity {
             Dialog dialog = recreateDialog();
             dialog.show();
         } else {
-            Intent intent = new Intent(OptionActivity.this, StoryActivity.class);
-            finish();
+
         }
     }
 
@@ -154,8 +167,11 @@ public class OptionActivity extends AppCompatActivity {
                 fis.close();
                 fos.close();
 
+<<<<<<< HEAD
                 System.out.println(tmpFile.getAbsolutePath());
 
+=======
+>>>>>>> refs/remotes/origin/fromMac
                 currentStory.getInstance().addStoryPart(new Clips(Uri.fromFile(tmpFile)));
                 Intent intent = new Intent(OptionActivity.this,StoryActivity.class);
                 startActivity(intent);
@@ -212,7 +228,15 @@ public class OptionActivity extends AppCompatActivity {
                         Dialog f = (Dialog) dialog;
                         EditText contentText = (EditText) f.findViewById(R.id.writeEditText);
                         if (!contentText.equals(R.string.hint)) {
-                            currentStory.getInstance().addStoryPart(new Text(contentText.getText().toString()));
+                            // Create an text file name
+                            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                            String audioFileName = "3gp_" + timeStamp + "_";
+
+                            // Save a file: path for use with ACTION_VIEW intents
+                            String fileName = getExternalFilesDir("DIRECTORY_TEXT").getAbsolutePath();
+                            fileName += "/" +audioFileName + ".txt";
+
+                            currentStory.getInstance().addStoryPart(new Text(contentText.getText().toString(),fileName));
                             Intent intent = new Intent(OptionActivity.this, StoryActivity.class);
                             startActivity(intent);
                         }

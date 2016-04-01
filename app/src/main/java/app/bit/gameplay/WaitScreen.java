@@ -16,7 +16,6 @@ import app.bit.baseclass.Player;
 import app.bit.longstoryshort.R;
 
 public class WaitScreen extends AppCompatActivity {
-    private final int position = ListofPlayer.getInstance().getPosition();
     private String mPlayerName;
     private Bitmap mPlayerProfile;
     private TextView countDown;

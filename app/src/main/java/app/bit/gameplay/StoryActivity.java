@@ -1,6 +1,9 @@
 package app.bit.gameplay;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -15,16 +18,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.github.clans.fab.FloatingActionButton;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import app.bit.baseclass.ListofPlayer;
+import app.bit.baseclass.ListofStory;
 import app.bit.baseclass.Multimedia.StoryPart;
+import app.bit.baseclass.Multimedia.Text;
+import app.bit.baseclass.Story;
 import app.bit.baseclass.currentStory;
+import app.bit.longstoryshort.Mainscreen;
 import app.bit.longstoryshort.R;
 
 public class StoryActivity extends AppCompatActivity {
@@ -44,6 +52,7 @@ public class StoryActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private FloatingActionButton completeStory;
+    private String result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +74,8 @@ public class StoryActivity extends AppCompatActivity {
         completeStory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Store each singleton of current story.
+                saveStory();
+
             }
         });
 
@@ -78,6 +88,37 @@ public class StoryActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
     }
+
+    private void saveStory(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(StoryActivity.this);
+        LayoutInflater inflater = StoryActivity.this.getLayoutInflater();
+
+        builder.setTitle("Name Your Story")
+                .setView(inflater.inflate(R.layout.storynamesubmit, null))
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Dialog f = (Dialog) dialog;
+                        EditText contentText = (EditText) f.findViewById(R.id.storyName);
+                        if (!contentText.equals("")){
+                            result = contentText.getText().toString();
+                            Story tempStory = new Story(result,getApplicationContext());
+                            ListofStory.getInstance().addStory(result, tempStory);
+                            Intent intent = new Intent(StoryActivity.this, Mainscreen.class);
+                            startActivity(intent);
+                        }
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.create().show();
+    }
+
     @Override
     protected void onStart(){
         super.onStart();
@@ -149,6 +190,7 @@ public class StoryActivity extends AppCompatActivity {
             test = (FrameLayout) rootView.findViewById(R.id.multiView);
             StoryPart part = story.get(position);
             part.setContext(this.getContext());
+            part.setActivity(this.getActivity());
             View temp = part.createView();
             temp.setLayoutParams(test.getLayoutParams());
             test.addView(temp);

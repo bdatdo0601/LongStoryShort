@@ -5,13 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 
+import java.io.File;
 import java.io.IOException;
 
 import app.bit.longstoryshort.R;
+
+
 
 
 /**
@@ -81,6 +83,26 @@ public class Audio extends StoryPart {
             }
         });
         return playButton;
+    }
+
+    @Override
+    public File getFile() {
+        return new File(fileName);
+    }
+
+    @Override
+    public void setfileDir(String newDir) {
+        fileName = newDir;
+    }
+
+    @Override
+    public String getfileDir() {
+        return fileName;
+    }
+
+    @Override
+    public String getExtension() {
+        return ".3gp";
     }
 
 

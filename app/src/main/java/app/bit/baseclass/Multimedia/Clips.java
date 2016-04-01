@@ -7,6 +7,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.VideoView;
 
+import java.io.File;
+import java.net.URI;
+
 /**
  * Created by bdatd on 3/12/2016.
  */
@@ -21,6 +24,7 @@ public class Clips extends StoryPart {
     public Clips(Uri location){
         fileName = location;
     }
+
 
 
     @Override
@@ -44,6 +48,26 @@ public class Clips extends StoryPart {
             }
         });
         return clipView;
+    }
+
+    @Override
+    public File getFile() {
+        return new File(fileName.getPath());
+    }
+
+    @Override
+    public void setfileDir(String newDir) {
+        fileName = Uri.parse(newDir);
+    }
+
+    @Override
+    public String getfileDir() {
+        return fileName.getPath();
+    }
+
+    @Override
+    public String getExtension() {
+        return ".mp4";
     }
 
 
