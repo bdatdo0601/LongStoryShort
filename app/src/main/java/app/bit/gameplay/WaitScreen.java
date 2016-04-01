@@ -67,7 +67,7 @@ public class WaitScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Toast.makeText(this,"Please wait!",Toast.LENGTH_SHORT);
+        Toast.makeText(this,"Please wait!",Toast.LENGTH_SHORT).show();
     }
 
     private void startChoosing(){
