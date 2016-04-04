@@ -1,4 +1,4 @@
-package app.bit.baseclass;
+package app.bit.baseclass.ListAdapter;
 
 
 import android.graphics.Bitmap;
@@ -12,13 +12,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 
+import java.io.Serializable;
+
 import app.bit.longstoryshort.PlayerActivity;
 import app.bit.longstoryshort.R;
 
 /**
  * Created by bdatd on 3/10/2016.
  */
-public class PlayerList extends ArrayAdapter<String> {
+public class PlayerList extends ArrayAdapter<String>  implements Serializable {
     private final PlayerActivity context;
     private String[] name;
     private Bitmap[] icon;

@@ -1,17 +1,11 @@
 <resources>
     <string name="app_name">Long Story Short</string>
-    <string name="title_activity_mainscreen">Mainscreen</string>
-    <string name="title_activity_players">PlayersActivity</string>
+    <string name="title_activity_mainscreen">Long Story Short</string>
+    <string name="title_activity_players">Players Profile</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-
-    <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-
     <string name="title_activity_wait">WaitActivity</string>
     <string name="hint">Enter up to 150 characters</string>
-    <string name="title_activity_story">StoryActivity</string>
+    <string name="title_activity_story">Our Story...</string>
     <string name="AudioRecordTitle">Hold to record</string>
     <string name="submitButtonTitle">Submit</string>
     <string name="playButtonTitle">Play</string>

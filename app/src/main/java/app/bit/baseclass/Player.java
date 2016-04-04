@@ -3,24 +3,31 @@ package app.bit.baseclass;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.io.Serializable;
+
+import app.bit.gameplay.OptionActivity;
+import app.bit.gameplay.WaitScreen;
+import app.bit.longstoryshort.PlayerActivity;
+import app.bit.longstoryshort.R;
+
 /**
  * Created by bdatd on 3/8/2016.
  */
-public class Player {
+public class Player  implements Serializable {
     private final String name;
-    private final Bitmap avatar;
+    private final String avatarLocation;
     private static int numberofPlayer=0;
     private final int playerNumber;
 
     public Player(){
         name = "Player " + (numberofPlayer+1);
-        avatar = BitmapFactory.decodeFile("@drawable/ic_profile.png");
+        avatarLocation = "";
         numberofPlayer++;
         playerNumber = numberofPlayer;
     }
-    public Player(String n, Bitmap i){
+    public Player(String n, String i){
         name = n;
-        avatar = i;
+        avatarLocation = i;
         numberofPlayer++;
         playerNumber = numberofPlayer;
     }
@@ -28,9 +35,12 @@ public class Player {
         return name;
     }
     public Bitmap getAvatar(){
-        return avatar;
-    }
-    public String toString(){
-        return String.format("Name: %s%n Icon: %s%n +",name,avatar);
+        Bitmap avatar;
+        if (avatarLocation.equals("")) {
+            avatar = BitmapFactory.decodeResource(WaitScreen.thisResources(), R.drawable.ic_profile);
+        }else {
+            avatar = BitmapFactory.decodeFile(avatarLocation);
+        }
+            return avatar;
     }
 }

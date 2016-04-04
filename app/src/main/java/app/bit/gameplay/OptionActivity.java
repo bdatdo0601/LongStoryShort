@@ -1,25 +1,15 @@
 package app.bit.gameplay;
 
 import android.app.Dialog;
-<<<<<<< HEAD
-import android.app.DialogFragment;
-import android.content.ContentResolver;
-import android.content.Context;
-=======
 
 import android.content.ContentResolver;
 
->>>>>>> refs/remotes/origin/fromMac
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-<<<<<<< HEAD
-=======
 
-import android.support.v4.app.DialogFragment;
->>>>>>> refs/remotes/origin/fromMac
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +29,7 @@ import java.util.Date;
 
 import app.bit.baseclass.Multimedia.Clips;
 import app.bit.baseclass.Multimedia.Text;
-import app.bit.baseclass.currentStory;
+import app.bit.baseclass.Singleton.currentStory;
 import app.bit.gameplay.Record.AudioRecord;
 import app.bit.longstoryshort.R;
 import app.bit.longstoryshort.amountscreen;
@@ -54,10 +44,6 @@ public class OptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
-<<<<<<< HEAD
-        final Bundle args = savedInstanceState;
-=======
->>>>>>> refs/remotes/origin/fromMac
 
         ImageButton cameraButton = (ImageButton) findViewById(R.id.cameraButton);
         ImageButton videoButton = (ImageButton) findViewById(R.id.videoButton);
@@ -84,7 +70,7 @@ public class OptionActivity extends AppCompatActivity {
         voiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialog = new AudioRecord();
+                android.support.v4.app.DialogFragment dialog = new AudioRecord();
                 dialog.show(getSupportFragmentManager(),"AudioRecord");
             }
         });
@@ -117,7 +103,7 @@ public class OptionActivity extends AppCompatActivity {
     }
 
     private String getVideofilename() {
-        // Create an image file name
+        // Create an video file name
         String mFileName;
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String audioFileName = "mp4_" + timeStamp + "_";
@@ -167,12 +153,8 @@ public class OptionActivity extends AppCompatActivity {
                 fis.close();
                 fos.close();
 
-<<<<<<< HEAD
-                System.out.println(tmpFile.getAbsolutePath());
 
-=======
->>>>>>> refs/remotes/origin/fromMac
-                currentStory.getInstance().addStoryPart(new Clips(Uri.fromFile(tmpFile)));
+                currentStory.getInstance().addStoryPart(new Clips(Uri.fromFile(tmpFile).getPath()));
                 Intent intent = new Intent(OptionActivity.this,StoryActivity.class);
                 startActivity(intent);
                 if (originFile.exists()){

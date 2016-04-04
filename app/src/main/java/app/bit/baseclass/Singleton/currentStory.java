@@ -1,4 +1,4 @@
-package app.bit.baseclass;
+package app.bit.baseclass.Singleton;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,8 @@ import app.bit.baseclass.Multimedia.StoryPart;
 /**
  * Created by bdatd on 3/12/2016.
  */
-public class currentStory {
+public class currentStory implements Session {
+    public boolean isPlayback = false;
     private ArrayList<StoryPart> story = new ArrayList<StoryPart>();
     private static currentStory ourInstance = new currentStory();
 
@@ -17,7 +18,9 @@ public class currentStory {
 
     private currentStory() {
     }
-
+    public void reinitialize(){
+        story = new ArrayList<StoryPart>();
+    }
 
     public void addStoryPart(StoryPart part){
         story.add(part);
@@ -33,5 +36,11 @@ public class currentStory {
 
     public ArrayList<StoryPart> getStory(){
         return story;
+    }
+
+    @Override
+    public void clear() {
+        story = null;
+
     }
 }

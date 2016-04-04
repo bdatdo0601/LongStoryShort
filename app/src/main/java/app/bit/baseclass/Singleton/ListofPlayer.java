@@ -1,11 +1,13 @@
-package app.bit.baseclass;
+package app.bit.baseclass.Singleton;
 
 import java.util.ArrayList;
+
+import app.bit.baseclass.Player;
 
 /**
  * Created by bdatd on 3/11/2016.
  */
-public class ListofPlayer {
+public class ListofPlayer implements Session {
     private ArrayList<Player> list ;
     private static int position = 0;
     private static ListofPlayer ourInstance = new ListofPlayer();
@@ -38,4 +40,16 @@ public class ListofPlayer {
         Player currentPlayer = list.get(pos);
         return currentPlayer;
     }
+    public Player getAssignedPlayer(){
+        int pos = (position - 1) % getNumberofPlayer();
+        return list.get(pos);
+    }
+
+    @Override
+    public void clear() {
+        position = 0;
+        list = null;
+
+    }
+
 }

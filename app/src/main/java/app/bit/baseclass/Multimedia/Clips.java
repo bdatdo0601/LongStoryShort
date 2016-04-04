@@ -15,13 +15,11 @@ import java.net.URI;
  */
 public class Clips extends StoryPart {
 
-    private Uri fileName;
+    private String fileName;
     private boolean isTouched = false;
-    private Handler mHandler = new Handler();
 
-    private VideoView clipView;
 
-    public Clips(Uri location){
+    public Clips(String location){
         fileName = location;
     }
 
@@ -29,8 +27,9 @@ public class Clips extends StoryPart {
 
     @Override
     public View createView() {
-        clipView = new VideoView(getContext());
-        clipView.setVideoURI(fileName);
+        final VideoView clipView = new VideoView(getContext());
+        clipView.setVideoURI(Uri.parse(fileName));
+        final Handler mHandler = new Handler();
         clipView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -52,17 +51,17 @@ public class Clips extends StoryPart {
 
     @Override
     public File getFile() {
-        return new File(fileName.getPath());
+        return new File(fileName);
     }
 
     @Override
     public void setfileDir(String newDir) {
-        fileName = Uri.parse(newDir);
+        fileName = newDir;
     }
 
     @Override
     public String getfileDir() {
-        return fileName.getPath();
+        return fileName;
     }
 
     @Override

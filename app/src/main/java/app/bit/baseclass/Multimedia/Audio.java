@@ -22,27 +22,25 @@ import app.bit.longstoryshort.R;
 public class Audio extends StoryPart {
 
     private String fileName;
-    private MediaPlayer mPlayer;
-    private Resources res;
     private Boolean isPlaying = false;
     private Boolean failedPrepare = false;
-    private ImageButton playButton;
-    private Bitmap playIcon;
-    private Bitmap pauseIcon;
+
 
     public Audio(String location) {
         fileName = location;
     }
 
-    private void play(){
-        mPlayer =  new MediaPlayer();
+    private void play(MediaPlayer mPlayer){
         try {
+            final Resources res = getContext().getResources();
+            final ImageButton playButton = new ImageButton(this.getContext());
             mPlayer.setDataSource(fileName);
             mPlayer.prepare();
             mPlayer.start();
             mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                    Bitmap playIcon = BitmapFactory.decodeResource(res, R.drawable.ic_play);
                     playButton.setImageBitmap(playIcon);
                 }
             });
@@ -51,19 +49,23 @@ public class Audio extends StoryPart {
         }
     }
 
-    private void pause(){
-        mPlayer.release();
-        mPlayer = null;
+    private void pause(MediaPlayer mediaPlayer){
+        mediaPlayer.release();
+        mediaPlayer = null;
     }
 
-    private void toggle(){
+    private void toggle(MediaPlayer mediaPlayer){
+        Resources res = getContext().getResources();
+        ImageButton playButton = new ImageButton(this.getContext());
+        Bitmap playIcon = BitmapFactory.decodeResource(res, R.drawable.ic_play);
+        Bitmap pauseIcon = BitmapFactory.decodeResource(res, R.drawable.ic_pause);
         if (!isPlaying){
-            play();
+            play(mediaPlayer);
             if (!failedPrepare) {
                 playButton.setImageBitmap(pauseIcon);
             }
         } else {
-            pause();
+            pause(mediaPlayer);
                 playButton.setImageBitmap(playIcon);
         }
         isPlaying = !isPlaying;
@@ -71,15 +73,15 @@ public class Audio extends StoryPart {
 
     @Override
     public View createView() {
-        res = getContext().getResources();
-        playIcon = BitmapFactory.decodeResource(res, R.drawable.ic_play);
-        pauseIcon = BitmapFactory.decodeResource(res,R.drawable.ic_pause);
-        playButton = new ImageButton(this.getContext());
+        Resources res = getContext().getResources();
+        Bitmap playIcon = BitmapFactory.decodeResource(res, R.drawable.ic_play);
+        ImageButton playButton = new ImageButton(this.getContext());
         playButton.setImageBitmap(playIcon);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggle();
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                toggle(mediaPlayer);
             }
         });
         return playButton;

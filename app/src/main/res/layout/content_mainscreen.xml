@@ -15,14 +15,17 @@
             android:layout_width="wrap_content"
             android:layout_height="41dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Long Story Short"
+            android:text="Make Your Creativity Great Again"
             android:id="@+id/textView"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:singleLine="true" />
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/listView" />
+            android:id="@+id/storyList" />
+
     </LinearLayout>
 
     <com.github.clans.fab.FloatingActionMenu
@@ -76,4 +79,15 @@
             fab:fab_label="New Story"/>
 
     </com.github.clans.fab.FloatingActionMenu>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/deleteall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_size="mini"
+        fab:fab_label="New Story"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="false"
+        android:layout_alignWithParentIfMissing="false" />
+
 </RelativeLayout>

@@ -6,16 +6,17 @@ import android.content.Context;
 import android.view.View;
 
 import java.io.File;
+import java.io.Serializable;
 
-import app.bit.baseclass.ListofPlayer;
+import app.bit.baseclass.Singleton.ListofPlayer;
 import app.bit.baseclass.Player;
 
-public abstract class StoryPart {
-    private Context context;
-    private Activity activity;
+public abstract class StoryPart implements Serializable{
+    private transient Context context;
+    private transient Activity activity;
     private Player assignedPlayer;
     public StoryPart(){
-        assignedPlayer = ListofPlayer.getInstance().getcurrentPlayer();
+        assignedPlayer = ListofPlayer.getInstance().getAssignedPlayer();
     }
     public abstract View createView();
     public void setActivity(Activity act){activity = act;}

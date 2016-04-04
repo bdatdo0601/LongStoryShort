@@ -1,50 +1,49 @@
 package app.bit.baseclass;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.ContextThemeWrapper;
 
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.lang.Object;
 
 import app.bit.baseclass.Multimedia.StoryPart;
+import app.bit.baseclass.Singleton.currentStory;
 
 /**
  * Created by datbacdo on 3/24/16.
  */
-public class Story  {
+public class Story implements Serializable{
     private ArrayList<StoryPart> story;
     private String storyName;
-    private Context ctx;
+    private transient Context ctx;
+    private ArrayList<Player> players;
 
-
-    public Story(String s, Context context){
+    public Story(String s, ArrayList<Player> players1 ,Context context){
         story = currentStory.getInstance().getStory();
+        players = players1;
         storyName = s;
         ctx = context;
         reorganizeStory();
-
     }
 
     public void reorganizeStory(){
 
         for (int i = 0; i<story.size(); i++){
             String newDir = ctx.getExternalFilesDir(storyName).getAbsolutePath() + "/" + i + story.get(i).getExtension();
+            System.out.println(newDir);
             try {
-                FileUtils.moveDirectory(story.get(i).getFile(), new File(newDir));
+                new File(newDir).delete();
+                FileUtils.moveFile(story.get(i).getFile(), new File(newDir));
                 story.get(i).setfileDir(newDir);
             } catch (IOException e){
                 e.printStackTrace();
             }
         }
     }
-
+    public ArrayList<Player> getPlayers(){return players;}
     public String getStoryName(){
         return storyName;
     }

@@ -1,6 +1,7 @@
 package app.bit.gameplay;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import app.bit.baseclass.ListofPlayer;
+import app.bit.baseclass.Singleton.ListofPlayer;
 import app.bit.baseclass.Player;
 import app.bit.longstoryshort.R;
 
@@ -20,14 +21,19 @@ public class WaitScreen extends AppCompatActivity {
     private Bitmap mPlayerProfile;
     private TextView countDown;
     private Boolean isDone=false;
+    private static Resources res;
+    public static Resources thisResources(){
+        return res;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        res = this.getResources();
         setContentView(R.layout.activity_wait_screen);
         final Player currentPlayer = ListofPlayer.getInstance().getcurrentPlayer();
         mPlayerName = currentPlayer.getName();
         mPlayerProfile = currentPlayer.getAvatar();
-
         TextView playerName = (TextView) findViewById(R.id.playerName);
         ImageView playerProfile = (ImageView) findViewById(R.id.imageView);
         playerName.setText(mPlayerName);

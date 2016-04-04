@@ -1,6 +1,7 @@
 package app.bit.longstoryshort;
 
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,7 +13,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.content.Intent;
 
@@ -27,9 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import app.bit.baseclass.ListofPlayer;
+import app.bit.baseclass.Singleton.ListofPlayer;
 import app.bit.baseclass.Player;
-import app.bit.baseclass.PlayerList;
+import app.bit.baseclass.ListAdapter.PlayerList;
 import app.bit.gameplay.WaitScreen;
 
 
@@ -38,10 +38,11 @@ public class PlayerActivity extends AppCompatActivity {
     private PlayerList playerAdapter;
     private String mCurrentPhotoPath;
     private String[] playername;
-    private Bitmap[] profile;
+    private String[] profile;
     private ArrayList<Player> players;
     private ListView playerList;
     private int position;
+    private static Resources res;
     static final int REQUEST_TAKE_PHOTO = 1;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -56,11 +57,11 @@ public class PlayerActivity extends AppCompatActivity {
         Intent plyamt = getIntent();
         NUMBER_OF_PLAYER = plyamt.getIntExtra("number", 2);
         playername = new String[NUMBER_OF_PLAYER];
-        profile = new Bitmap[NUMBER_OF_PLAYER];
+        profile = new String[NUMBER_OF_PLAYER];
         for (int i = 0; i < playername.length; i++) {
 
             playername[i] = "Player " + Integer.toString(i + 1);
-            profile[i] = BitmapFactory.decodeResource(PlayerActivity.this.getResources(), R.drawable.ic_profile);
+            profile[i] =  "";
         }
         playerAdapter = new PlayerList(PlayerActivity.this, playername);
         playerList = (ListView) findViewById(R.id.listView2);
@@ -107,8 +108,7 @@ public class PlayerActivity extends AppCompatActivity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
+        File storageDir = new File(getExternalFilesDir("DIRECTORY_PROFILE").getAbsolutePath());
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -151,8 +151,8 @@ public class PlayerActivity extends AppCompatActivity {
             Bitmap pic = BitmapFactory.decodeFile(mCurrentPhotoPath);
             if (pic != null) {
                 ImageButton imageButton = (ImageButton) childView.findViewById(R.id.imageButton2);
-                profile[position] = BitmapFactory.decodeFile(mCurrentPhotoPath);
-                imageButton.setImageBitmap(profile[position]);
+                profile[position] = mCurrentPhotoPath;
+                imageButton.setImageBitmap(BitmapFactory.decodeFile(profile[position]));
                 imageButton.setScaleType(ImageButton.ScaleType.CENTER_INSIDE);
             }
         }

@@ -5,9 +5,12 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 
 /**
@@ -56,6 +59,16 @@ public class Text extends StoryPart {
     @Override
     public void setfileDir(String newDir) {
         fileName = newDir;
+        text = "";
+        try {
+            Scanner in = new Scanner(new FileReader(fileName));
+            while (in.hasNext()){
+               text = text + in.next();
+            }
+            in.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

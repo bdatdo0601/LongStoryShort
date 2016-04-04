@@ -22,16 +22,16 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import app.bit.baseclass.ListofPlayer;
-import app.bit.baseclass.ListofStory;
+import app.bit.baseclass.Player;
+import app.bit.baseclass.Singleton.ListofPlayer;
+import app.bit.baseclass.Singleton.ListofStory;
 import app.bit.baseclass.Multimedia.StoryPart;
-import app.bit.baseclass.Multimedia.Text;
 import app.bit.baseclass.Story;
-import app.bit.baseclass.currentStory;
+import app.bit.baseclass.Singleton.currentStory;
 import app.bit.longstoryshort.Mainscreen;
 import app.bit.longstoryshort.R;
 
@@ -53,13 +53,12 @@ public class StoryActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private FloatingActionButton completeStory;
     private String result;
+    private FloatingActionMenu menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         FloatingActionButton nextPlayer = (FloatingActionButton) findViewById(R.id.nextButton);
         completeStory = (FloatingActionButton) findViewById(R.id.completedButton);
 
@@ -102,8 +101,12 @@ public class StoryActivity extends AppCompatActivity {
                         EditText contentText = (EditText) f.findViewById(R.id.storyName);
                         if (!contentText.equals("")){
                             result = contentText.getText().toString();
-                            Story tempStory = new Story(result,getApplicationContext());
+                            ArrayList<Player> players = ListofPlayer.getInstance().getList();
+                            Story tempStory = new Story(result, players, getApplicationContext());
                             ListofStory.getInstance().addStory(result, tempStory);
+                            ListofStory.getInstance().write();
+                            ListofPlayer.getInstance().clear();
+                            currentStory.getInstance().clear();
                             Intent intent = new Intent(StoryActivity.this, Mainscreen.class);
                             startActivity(intent);
                         }
@@ -122,16 +125,31 @@ public class StoryActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        if (ListofPlayer.getInstance().getNumberofPlayer() > currentStory.getInstance().getSize()){
-            completeStory.setVisibility(View.GONE);
+        menu = (FloatingActionMenu) findViewById(R.id.optionButton);
+        if (currentStory.getInstance().isPlayback){
+            menu.setVisibility(View.GONE);
         } else {
-            completeStory.setVisibility(View.VISIBLE);
+            menu.setVisibility(View.VISIBLE);
+            if (ListofPlayer.getInstance().getNumberofPlayer() > currentStory.getInstance().getSize()){
+                completeStory.setVisibility(View.GONE);
+            } else {
+                completeStory.setVisibility(View.VISIBLE);
+            }
         }
     }
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(StoryActivity.this, WaitScreen.class);
-        startActivity(intent);
+        if (!currentStory.getInstance().isPlayback) {
+            Intent intent = new Intent(StoryActivity.this, WaitScreen.class);
+            startActivity(intent);
+        } else {
+            ListofPlayer.getInstance().clear();
+            currentStory.getInstance().clear();
+            Intent intent = new Intent(StoryActivity.this, Mainscreen.class);
+            startActivity(intent);
+        }
+        finish();
+
     }
 
     @Override
