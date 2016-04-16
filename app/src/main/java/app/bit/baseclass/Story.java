@@ -13,6 +13,8 @@ import app.bit.baseclass.Multimedia.StoryPart;
 import app.bit.baseclass.Singleton.currentStory;
 
 /**
+ * Story class will create one story with multiple story parts.
+ *
  * Created by datbacdo on 3/24/16.
  */
 public class Story implements Serializable{
@@ -29,7 +31,7 @@ public class Story implements Serializable{
         reorganizeStory();
     }
 
-    public void reorganizeStory(){
+    private void reorganizeStory(){
 
         for (int i = 0; i<story.size(); i++){
             String newDir = ctx.getExternalFilesDir(storyName).getAbsolutePath() + "/" + i + story.get(i).getExtension();

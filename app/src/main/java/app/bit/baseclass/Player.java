@@ -5,12 +5,14 @@ import android.graphics.BitmapFactory;
 
 import java.io.Serializable;
 
-import app.bit.gameplay.OptionActivity;
 import app.bit.gameplay.WaitScreen;
-import app.bit.longstoryshort.PlayerActivity;
 import app.bit.longstoryshort.R;
 
 /**
+ * Player class is used to create player, including their name and their profile picture
+ *
+ * instances of Player class will also be stored in memory when a story session is finished
+ *
  * Created by bdatd on 3/8/2016.
  */
 public class Player  implements Serializable {

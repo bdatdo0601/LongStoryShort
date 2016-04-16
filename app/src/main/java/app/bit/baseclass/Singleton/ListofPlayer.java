@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import app.bit.baseclass.Player;
 
 /**
- * Created by bdatd on 3/11/2016.
+ * ListofPlayer used to store a list of player during creating story session
+ *
  */
 public class ListofPlayer implements Session {
     private ArrayList<Player> list ;

@@ -1,11 +1,9 @@
 package app.bit.baseclass.Singleton;
 
-import android.content.Context;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -15,6 +13,7 @@ import java.util.Map;
 import app.bit.baseclass.Story;
 
 /**
+ * ListofStory store every story that had already created in order to show it on the MainScreen
  *
  * Created by datbacdo on 3/31/16.
  */

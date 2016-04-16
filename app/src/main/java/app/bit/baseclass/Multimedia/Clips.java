@@ -1,6 +1,6 @@
 package app.bit.baseclass.Multimedia;
 
-import android.content.Context;
+
 import android.net.Uri;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.VideoView;
 
 import java.io.File;
-import java.net.URI;
+
 
 /**
+ * Clips is a subclass from abstract class StoryPart used to handle video record by the user into the Story
+ *
  * Created by bdatd on 3/12/2016.
  */
 public class Clips extends StoryPart {
@@ -18,7 +20,10 @@ public class Clips extends StoryPart {
     private String fileName;
     private boolean isTouched = false;
 
-
+    /**
+     * The constructor of Clips will need the file Location of the audio file created.
+     * @param location
+     */
     public Clips(String location){
         fileName = location;
     }
@@ -27,6 +32,7 @@ public class Clips extends StoryPart {
 
     @Override
     public View createView() {
+        //create VideoView for the user to see the video file
         final VideoView clipView = new VideoView(getContext());
         clipView.setVideoURI(Uri.parse(fileName));
         final Handler mHandler = new Handler();

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import app.bit.baseclass.Multimedia.StoryPart;
 
 /**
+ * currentStory used to either show or modify a story
+ *
  * Created by bdatd on 3/12/2016.
  */
 public class currentStory implements Session {
